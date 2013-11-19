@@ -186,7 +186,7 @@ public class SQLTable {
      * @return the SQLTableIndex object with the PK
      */
     public SQLTableIndex createPrimaryKey() {
-        List<String> names = new ArrayList<>();
+        List<String> names = new ArrayList();
         List<SQLTableColumn> colList = columns.getColumnSet();
         for (SQLTableColumn col : colList) {
             if (col.isPK()) {
@@ -194,7 +194,7 @@ public class SQLTable {
             }
         }
         if (!names.isEmpty()) {
-            ConcurrentHashMap<String, SQLTableIndexColumn> indexColumn = new ConcurrentHashMap<>();
+            ConcurrentHashMap<String, SQLTableIndexColumn> indexColumn = new ConcurrentHashMap();
             int i = 0;
             for (String n : names) {
                 indexColumn.put(n, new SQLTableIndexColumn(n, i++, "ASC", ""));
@@ -210,7 +210,7 @@ public class SQLTable {
      * @return the SQLTableIndex object with the PK
      */
     public SQLTableIndex createUniqueKey() {
-        List<String> names = new ArrayList<>();
+        List<String> names = new ArrayList();
         List<SQLTableColumn> colList = columns.getColumnSet();
         for (SQLTableColumn col : colList) {
             if (col.isUQ()) {
@@ -218,7 +218,7 @@ public class SQLTable {
             }
         }
         if (!names.isEmpty()) {
-            ConcurrentHashMap<String, SQLTableIndexColumn> indexColumn = new ConcurrentHashMap<>();
+            ConcurrentHashMap<String, SQLTableIndexColumn> indexColumn = new ConcurrentHashMap();
             int i = 0;
             for (String n : names) {
                 indexColumn.put(n, new SQLTableIndexColumn(n, i++, "ASC", ""));

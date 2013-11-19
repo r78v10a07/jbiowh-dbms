@@ -19,7 +19,7 @@ public class JBioWHDBMS {
     private Map<String, WHDBMSFactory> connections;
 
     private JBioWHDBMS() {
-        connections = new HashMap<>();
+        connections = new HashMap();
     }
 
     /**

@@ -38,7 +38,7 @@ public class SQLTableIndex {
         this.name = name;
         this.number = number;
         this.type = type;
-        columns = new ConcurrentHashMap<>();
+        columns = new ConcurrentHashMap();
     }
 
     /**
@@ -321,7 +321,7 @@ public class SQLTableIndex {
         if (!columns.isEmpty()) {
             if (type.equals("PRIMARY")) {
                 s.append("PRIMARY KEY (");
-                List<SQLTableIndexColumn> colList = new ArrayList<>(columns.values());
+                List<SQLTableIndexColumn> colList = new ArrayList(columns.values());
                 Collections.sort(colList, new ColumnComparator());
                 for (Iterator ind = colList.iterator(); ind.hasNext();) {
                     s.append("`").append(((SQLTableIndexColumn) ind.next()).getName()).append("`");
@@ -336,7 +336,7 @@ public class SQLTableIndex {
                     s.append("INDEX ");
                 }
                 s.append("`").append(name).append("` (");
-                List<SQLTableIndexColumn> colList = new ArrayList<>(columns.values());
+                List<SQLTableIndexColumn> colList = new ArrayList(columns.values());
                 Collections.sort(colList, new ColumnComparator());
                 for (Iterator ind = colList.iterator(); ind.hasNext();) {
                     SQLTableIndexColumn col = (SQLTableIndexColumn) ind.next();
@@ -374,7 +374,7 @@ public class SQLTableIndex {
      * executed after remove or add a columns to the handler
      */
     public void reNumIndex() {
-        List<SQLTableIndexColumn> indList = new ArrayList<>(columns.values());
+        List<SQLTableIndexColumn> indList = new ArrayList(columns.values());
         Collections.sort(indList, new ColumnComparator());
         int i = 0;
         for (Iterator ind = indList.iterator(); ind.hasNext();) {
