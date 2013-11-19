@@ -31,6 +31,7 @@ public class WHMySQL extends JBioWHUserData implements WHDBMSFactory {
      * @param url the connection URL (jdbc:mysql://<host>:3306/<database>)
      * @param dbuser the database user
      * @param dbpasswd the database password
+     * @param jbiowhSchema
      */
     public WHMySQL(String driver, String url, String dbuser, String dbpasswd, boolean jbiowhSchema) {
         super(driver, url, dbuser, dbpasswd, jbiowhSchema);
@@ -51,7 +52,15 @@ public class WHMySQL extends JBioWHUserData implements WHDBMSFactory {
         }
         try {
             Class.forName(getDriver()).newInstance();
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+        } catch (ClassNotFoundException ex) {
+            VerbLogger.getInstance().setLevel(VerbLogger.getInstance().ERROR);
+            VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + "Can't find the driver class: " + getDriver());
+            VerbLogger.getInstance().setLevel(VerbLogger.getInstance().getInitialLevel());
+        } catch (InstantiationException ex) {
+            VerbLogger.getInstance().setLevel(VerbLogger.getInstance().ERROR);
+            VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + "Can't find the driver class: " + getDriver());
+            VerbLogger.getInstance().setLevel(VerbLogger.getInstance().getInitialLevel());
+        } catch (IllegalAccessException ex) {
             VerbLogger.getInstance().setLevel(VerbLogger.getInstance().ERROR);
             VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + "Can't find the driver class: " + getDriver());
             VerbLogger.getInstance().setLevel(VerbLogger.getInstance().getInitialLevel());
@@ -105,10 +114,9 @@ public class WHMySQL extends JBioWHUserData implements WHDBMSFactory {
         String sql = "LOAD DATA LOCAL INFILE \"" + file + "\" INTO TABLE " + table;
 
         try {
-            try (Statement s = createStatement()) {
-                VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + sql);
-                s.executeQuery(sql);
-            }
+            Statement s = createStatement();
+            VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + sql);
+            s.executeQuery(sql);
         } catch (SQLException e) {
             VerbLogger.getInstance().setLevel(VerbLogger.getInstance().ERROR);
             VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + "Can't load file: " + file + " into table: " + table);
@@ -136,9 +144,8 @@ public class WHMySQL extends JBioWHUserData implements WHDBMSFactory {
 
         try {
             VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + sql);
-            try (Statement s = createStatement()) {
-                s.executeQuery(sql);
-            }
+            Statement s = createStatement();
+            s.executeQuery(sql);
         } catch (SQLException e) {
             VerbLogger.getInstance().setLevel(VerbLogger.getInstance().ERROR);
             VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + sql);
@@ -159,17 +166,22 @@ public class WHMySQL extends JBioWHUserData implements WHDBMSFactory {
     public void loadTSVFile(String table, File file) {
         try {
             String sql = "LOAD DATA LOCAL  INFILE \"" + file.getCanonicalPath() + "\" INTO TABLE " + table;
-            try (Statement s = createStatement()) {
-                VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + sql);
-                s.executeQuery(sql);
-            }
-        } catch (SQLException | IOException e) {
+            Statement s = createStatement();
+            VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + sql);
+            s.executeQuery(sql);
+        } catch (SQLException e) {
             VerbLogger.getInstance().setLevel(VerbLogger.getInstance().ERROR);
             VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + "Can't load file: " + file + " into table: " + table);
             if (e instanceof SQLException) {
                 VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + "Exception code for this SQLException object: "
                         + ((SQLException) e).getErrorCode());
             }
+            VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + e.getMessage());
+            VerbLogger.getInstance().setLevel(VerbLogger.getInstance().getInitialLevel());
+            System.exit(1);
+        } catch (IOException e) {
+            VerbLogger.getInstance().setLevel(VerbLogger.getInstance().ERROR);
+            VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + "Can't load file: " + file + " into table: " + table);
             VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + e.getMessage());
             VerbLogger.getInstance().setLevel(VerbLogger.getInstance().getInitialLevel());
             System.exit(1);
@@ -186,17 +198,22 @@ public class WHMySQL extends JBioWHUserData implements WHDBMSFactory {
     public void loadTSVFileIgnore(String table, File file) {
         try {
             String sql = "LOAD DATA LOCAL  INFILE \"" + file.getCanonicalPath() + "\" IGNORE INTO TABLE " + table;
-            try (Statement s = createStatement()) {
-                VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + sql);
-                s.executeQuery(sql);
-            }
-        } catch (SQLException | IOException e) {
+            Statement s = createStatement();
+            VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + sql);
+            s.executeQuery(sql);
+        } catch (SQLException e) {
             VerbLogger.getInstance().setLevel(VerbLogger.getInstance().ERROR);
             VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + "Can't load file: " + file + " into table: " + table);
             if (e instanceof SQLException) {
                 VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + "Exception code for this SQLException object: "
                         + ((SQLException) e).getErrorCode());
             }
+            VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + e.getMessage());
+            VerbLogger.getInstance().setLevel(VerbLogger.getInstance().getInitialLevel());
+            System.exit(1);
+        } catch (IOException e) {
+            VerbLogger.getInstance().setLevel(VerbLogger.getInstance().ERROR);
+            VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + "Can't load file: " + file + " into table: " + table);
             VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + e.getMessage());
             VerbLogger.getInstance().setLevel(VerbLogger.getInstance().getInitialLevel());
             System.exit(1);
@@ -221,16 +238,21 @@ public class WHMySQL extends JBioWHUserData implements WHDBMSFactory {
                     + format
                     + " ";
             VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + sql);
-            try (Statement s = createStatement()) {
-                s.executeQuery(sql);
-            }
-        } catch (SQLException | IOException e) {
+            Statement s = createStatement();
+            s.executeQuery(sql);
+        } catch (SQLException e) {
             VerbLogger.getInstance().setLevel(VerbLogger.getInstance().ERROR);
             VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + sql);
             if (e instanceof SQLException) {
                 VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + "Exception code for this SQLException object: "
                         + ((SQLException) e).getErrorCode());
             }
+            VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + e.getMessage());
+            VerbLogger.getInstance().setLevel(VerbLogger.getInstance().getInitialLevel());
+            System.exit(1);
+        } catch (IOException e) {
+            VerbLogger.getInstance().setLevel(VerbLogger.getInstance().ERROR);
+            VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + "Can't load file: " + file + " into table: " + table);
             VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + e.getMessage());
             VerbLogger.getInstance().setLevel(VerbLogger.getInstance().getInitialLevel());
             System.exit(1);
@@ -255,16 +277,21 @@ public class WHMySQL extends JBioWHUserData implements WHDBMSFactory {
                     + format
                     + " ";
             VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + sql);
-            try (Statement s = createStatement()) {
-                s.executeQuery(sql);
-            }
-        } catch (SQLException | IOException e) {
+            Statement s = createStatement();
+            s.executeQuery(sql);
+        } catch (SQLException e) {
             VerbLogger.getInstance().setLevel(VerbLogger.getInstance().ERROR);
             VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + sql);
             if (e instanceof SQLException) {
                 VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + "Exception code for this SQLException object: "
                         + ((SQLException) e).getErrorCode());
             }
+            VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + e.getMessage());
+            VerbLogger.getInstance().setLevel(VerbLogger.getInstance().getInitialLevel());
+            System.exit(1);
+        } catch (IOException e) {
+            VerbLogger.getInstance().setLevel(VerbLogger.getInstance().ERROR);
+            VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + "Can't load file: " + file + " into table: " + table);
             VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + e.getMessage());
             VerbLogger.getInstance().setLevel(VerbLogger.getInstance().getInitialLevel());
             System.exit(1);
@@ -310,11 +337,10 @@ public class WHMySQL extends JBioWHUserData implements WHDBMSFactory {
     @Override
     public int executeUpdate(String sql) throws SQLException {
         int count;
-        try (Statement s = createStatement()) {
-            VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + " Executing: " + sql);
-            count = s.executeUpdate(sql);
-            VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + count + " elements modified");
-        }
+        Statement s = createStatement();
+        VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + " Executing: " + sql);
+        count = s.executeUpdate(sql);
+        VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + count + " elements modified");
         return count;
     }
 
@@ -330,20 +356,19 @@ public class WHMySQL extends JBioWHUserData implements WHDBMSFactory {
         long longColumnLabel = 0;
 
         try {
-            try (Statement s = createStatement()) {
-                s.executeQuery(sql);
-                try (ResultSet rs = s.getResultSet()) {
-                    while (rs.next()) {
-                        longColumnLabel = rs.getLong(columnLabel);
-                        break;
-                    }
-                    VerbLogger.getInstance().log(this.getClass(),
-                            MYSQLFLAG + "Long value for column: " + columnLabel
-                            + " is: " + longColumnLabel
-                            + " from sentence: "
-                            + sql);
-                }
+            Statement s = createStatement();
+            s.executeQuery(sql);
+            ResultSet rs = s.getResultSet();
+            while (rs.next()) {
+                longColumnLabel = rs.getLong(columnLabel);
+                break;
             }
+            VerbLogger.getInstance().log(this.getClass(),
+                    MYSQLFLAG + "Long value for column: " + columnLabel
+                    + " is: " + longColumnLabel
+                    + " from sentence: "
+                    + sql);
+
         } catch (SQLException e) {
             VerbLogger.getInstance().setLevel(VerbLogger.getInstance().ERROR);
             VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + "Can't return the int columnLabel: "
@@ -374,20 +399,18 @@ public class WHMySQL extends JBioWHUserData implements WHDBMSFactory {
     public void splitField(PrintWriter tofile,
             String sql, String field1header, String field2header, String separator) {
         try {
-            try (Statement s = createStatement()) {
-                s.executeQuery(sql);
-                try (ResultSet rs = s.getResultSet()) {
-                    while (rs.next()) {
-                        String field1 = rs.getString(field1header);
-                        String field2[] = rs.getString(field2header).split(separator);
-                        for (String field21 : field2) {
-                            tofile.print(field1.trim() + "\t" + field21.trim() + "\n");
-                        }
-                    }
-
-                    tofile.flush();
+            Statement s = createStatement();
+            s.executeQuery(sql);
+            ResultSet rs = s.getResultSet();
+            while (rs.next()) {
+                String field1 = rs.getString(field1header);
+                String field2[] = rs.getString(field2header).split(separator);
+                for (String field21 : field2) {
+                    tofile.print(field1.trim() + "\t" + field21.trim() + "\n");
                 }
             }
+
+            tofile.flush();
         } catch (SQLException e) {
             VerbLogger.getInstance().setLevel(VerbLogger.getInstance().ERROR);
             VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + "Can't execute splitField method"
@@ -418,23 +441,21 @@ public class WHMySQL extends JBioWHUserData implements WHDBMSFactory {
             String sql, String field1header, String field2header,
             String separator1, String separator2) {
         try {
-            try (Statement s = createStatement()) {
-                s.executeQuery(sql);
-                try (ResultSet rs = s.getResultSet()) {
-                    while (rs.next()) {
-                        String field1 = rs.getString(field1header);
-                        String[] field2 = rs.getString(field2header).split(separator1);
-                        for (String field21 : field2) {
-                            String[] field3 = field21.split(separator2);
-                            if (field3.length == 2) {
-                                tofile.print(field1.trim() + "\t" + field3[0].trim() + "\t" + field3[1].trim() + "\n");
-                            }
-                        }
+            Statement s = createStatement();
+            s.executeQuery(sql);
+            ResultSet rs = s.getResultSet();
+            while (rs.next()) {
+                String field1 = rs.getString(field1header);
+                String[] field2 = rs.getString(field2header).split(separator1);
+                for (String field21 : field2) {
+                    String[] field3 = field21.split(separator2);
+                    if (field3.length == 2) {
+                        tofile.print(field1.trim() + "\t" + field3[0].trim() + "\t" + field3[1].trim() + "\n");
                     }
-
-                    tofile.flush();
                 }
             }
+
+            tofile.flush();
         } catch (SQLException e) {
             VerbLogger.getInstance().setLevel(VerbLogger.getInstance().ERROR);
             VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + "Can't execute splitField method"
@@ -472,17 +493,15 @@ public class WHMySQL extends JBioWHUserData implements WHDBMSFactory {
         Map<String, List<String>> tables = new TreeMap();
         try {
             DatabaseMetaData meta = conn.getMetaData();
-            try (ResultSet rs = meta.getTables(null, null, "%", null)) {
-                while (rs.next()) {
-                    String tableName = rs.getString("TABLE_NAME");
-                    List<String> columns = new ArrayList();
-                    try (ResultSet rsColumn = meta.getColumns(null, null, tableName, null)) {
-                        while (rsColumn.next()) {
-                            columns.add(rsColumn.getString("COLUMN_NAME"));
-                        }
-                    }
-                    tables.put(tableName, columns);
+            ResultSet rs = meta.getTables(null, null, "%", null);
+            while (rs.next()) {
+                String tableName = rs.getString("TABLE_NAME");
+                List<String> columns = new ArrayList();
+                ResultSet rsColumn = meta.getColumns(null, null, tableName, null);
+                while (rsColumn.next()) {
+                    columns.add(rsColumn.getString("COLUMN_NAME"));
                 }
+                tables.put(tableName, columns);
             }
         } catch (SQLException e) {
             VerbLogger.getInstance().setLevel(VerbLogger.getInstance().ERROR);
@@ -503,16 +522,14 @@ public class WHMySQL extends JBioWHUserData implements WHDBMSFactory {
      */
     @Override
     public List<String> getDBMSDataTypes() {
+        List<String> datatypes = new ArrayList();
         try {
-            List<String> datatypes = new ArrayList<>();
             DatabaseMetaData meta = conn.getMetaData();
-            try (ResultSet rs = meta.getTypeInfo()) {
-                while (rs.next()) {
-                    datatypes.add(rs.getString("TYPE_NAME"));
-                }
+            ResultSet rs = meta.getTypeInfo();
+            while (rs.next()) {
+                datatypes.add(rs.getString("TYPE_NAME"));
             }
             Collections.sort(datatypes);
-            return datatypes;
         } catch (SQLException ex) {
             VerbLogger.getInstance().setLevel(VerbLogger.getInstance().ERROR);
             VerbLogger.getInstance().log(this.getClass(), MYSQLFLAG + "Exception code for this SQLException object: " + ex.getErrorCode());
@@ -521,7 +538,7 @@ public class WHMySQL extends JBioWHUserData implements WHDBMSFactory {
             VerbLogger.getInstance().setLevel(VerbLogger.getInstance().getInitialLevel());
             System.exit(1);
         }
-        return null;
+        return datatypes;
     }
 
     /**
@@ -541,14 +558,13 @@ public class WHMySQL extends JBioWHUserData implements WHDBMSFactory {
             try {
                 Statement s = createStatement();
                 s.executeQuery("select count(*) from " + table);
-                try (ResultSet rs = s.getResultSet()) {
-                    while (rs.next()) {
-                        List inData = new ArrayList();
-                        inData.add(table);
-                        inData.add(rs.getInt(1));
-                        data.add(inData);
-                        break;
-                    }
+                ResultSet rs = s.getResultSet();
+                while (rs.next()) {
+                    List inData = new ArrayList();
+                    inData.add(table);
+                    inData.add(rs.getInt(1));
+                    data.add(inData);
+                    break;
                 }
             } catch (SQLException e) {
                 VerbLogger.getInstance().setLevel(VerbLogger.getInstance().ERROR);
@@ -658,7 +674,7 @@ public class WHMySQL extends JBioWHUserData implements WHDBMSFactory {
 
     @Override
     public List<List> executeMultipleSQLSelect(List<String> sentences) throws SQLException {
-        List<List> multipleSQLResults = new ArrayList<>();
+        List<List> multipleSQLResults = new ArrayList();
         for (String sentence : sentences) {
             multipleSQLResults.add(execute(sentence));
         }
@@ -667,7 +683,7 @@ public class WHMySQL extends JBioWHUserData implements WHDBMSFactory {
 
     @Override
     public List<List> executeMultipleSQLSelect(List<String> sentences, int offset, int rowCount) throws SQLException {
-        List<List> multipleSQLResults = new ArrayList<>();
+        List<List> multipleSQLResults = new ArrayList();
         for (String sentence : sentences) {
             multipleSQLResults.add(executeSingleSQLSelect(sentence, offset, rowCount));
         }

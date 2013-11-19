@@ -28,7 +28,7 @@ public class SQLTableIndexes implements Observer {
      * Creates the indexes handler in a SQLTable
      */
     public SQLTableIndexes() {
-        indexes = new ConcurrentHashMap<>();
+        indexes = new ConcurrentHashMap();
     }
 
     /**
@@ -210,7 +210,7 @@ public class SQLTableIndexes implements Observer {
     public String toSQLFormat() throws SQLTableException {
         StringBuilder s = new StringBuilder();
 
-        List<SQLTableIndex> indList = new ArrayList<>(indexes.values());
+        List<SQLTableIndex> indList = new ArrayList(indexes.values());
         Collections.sort(indList, new IndexComparator());
         for (Iterator ind = indList.iterator(); ind.hasNext();) {
             s.append(((SQLTableIndex) ind.next()).toSQLFormat());
@@ -228,13 +228,13 @@ public class SQLTableIndexes implements Observer {
      * @return a list of the index sorted by its internal number
      */
     public List<SQLTableIndex> getIndexSet() {
-        List<SQLTableIndex> indList = new ArrayList<>(indexes.values());
+        List<SQLTableIndex> indList = new ArrayList(indexes.values());
         Collections.sort(indList, new IndexComparator());
         return indList;
     }
 
     private void reNumIndex() {
-        List<SQLTableIndex> indList = new ArrayList<>(indexes.values());
+        List<SQLTableIndex> indList = new ArrayList(indexes.values());
         Collections.sort(indList, new IndexComparator());
         int i = 0;
         for (Iterator ind = indList.iterator(); ind.hasNext();) {

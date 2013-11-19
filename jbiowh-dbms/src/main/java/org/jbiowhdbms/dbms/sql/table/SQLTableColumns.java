@@ -28,7 +28,7 @@ public class SQLTableColumns extends Observable {
      * Creates the columns handler in a SQLTable
      */
     public SQLTableColumns() {
-        columns = new ConcurrentHashMap<>();
+        columns = new ConcurrentHashMap();
     }
 
     /**
@@ -203,7 +203,7 @@ public class SQLTableColumns extends Observable {
             throw new SQLTableException("Table needs columns");
         }
 
-        List<SQLTableColumn> colList = new ArrayList<>(columns.values());
+        List<SQLTableColumn> colList = new ArrayList(columns.values());
         Collections.sort(colList, new ColumnComparator());
         for (Iterator col = colList.iterator(); col.hasNext();) {
             s.append(((SQLTableColumn) col.next()).toSQLFormat());
@@ -221,7 +221,7 @@ public class SQLTableColumns extends Observable {
      * @return a list of the columns sorted by its internal number
      */
     public List<SQLTableColumn> getColumnSet() {
-        List<SQLTableColumn> colList = new ArrayList<>(columns.values());
+        List<SQLTableColumn> colList = new ArrayList(columns.values());
         Collections.sort(colList, new SQLTableColumns.ColumnComparator());
         return colList;
     }
@@ -231,7 +231,7 @@ public class SQLTableColumns extends Observable {
      * after remove or add a columns to the handler
      */
     public void reNumColumn() {
-        List<SQLTableColumn> colList = new ArrayList<>(columns.values());
+        List<SQLTableColumn> colList = new ArrayList(columns.values());
         Collections.sort(colList, new ColumnComparator());
         int i = 0;
         for (Iterator col = colList.iterator(); col.hasNext();) {
