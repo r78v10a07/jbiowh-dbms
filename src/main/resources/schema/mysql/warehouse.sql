@@ -3562,12 +3562,12 @@ DROP TABLE IF EXISTS `DrugBank` ;
 
 CREATE TABLE IF NOT EXISTS `DrugBank` (
   `WID` BIGINT NOT NULL,
-  `Id` VARCHAR(10) NOT NULL,
-  `Name` VARCHAR(255) NOT NULL,
-  `Description` TEXT NULL,
+  `Id` VARCHAR(10) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL,
+  `Name` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL,
+  `Description` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL,
   `CASNumber` VARCHAR(20) NULL,
   `SynthesisRef` TEXT NULL,
-  `Indication` TEXT NULL,
+  `Indication` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL,
   `Pharmacology` TEXT NULL,
   `MechanismOfAction` TEXT NULL,
   `Toxicity` TEXT NULL,
@@ -3589,7 +3589,9 @@ CREATE TABLE IF NOT EXISTS `DrugBank` (
   INDEX `pk_CASNumber` (`CASNumber` ASC),
   INDEX `fk_DrugBank_DataSet1_idx` (`DataSet_WID` ASC),
   INDEX `pk_Type` (`Type` ASC))
-ENGINE = MyISAM;
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
 
 
 -- -----------------------------------------------------
@@ -3598,27 +3600,23 @@ ENGINE = MyISAM;
 DROP TABLE IF EXISTS `DrugBankGeneralRef` ;
 
 CREATE TABLE IF NOT EXISTS `DrugBankGeneralRef` (
-  `WID` BIGINT NOT NULL,
   `DrugBank_WID` BIGINT NOT NULL,
   `Cite` TEXT NULL,
   `Link` TEXT NULL,
-  INDEX `fk_DrugBankGeneralRef_DrugBank1_idx` (`DrugBank_WID` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `fk_DrugBankGeneralRef_DrugBank1_idx` (`DrugBank_WID` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankSecondAccessionNumbers`
+-- Table `DrugBankSecondAccessionNumber`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankSecondAccessionNumbers` ;
+DROP TABLE IF EXISTS `DrugBankSecondAccessionNumber` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankSecondAccessionNumbers` (
-  `WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankSecondAccessionNumber` (
   `DrugBank_WID` BIGINT NOT NULL,
   `AccessionNumber` VARCHAR(45) NULL,
   INDEX `fk_DrugBankSecondAccessionNumbers_DrugBank1_idx` (`DrugBank_WID` ASC),
-  INDEX `pk_AccessionNumber` (`AccessionNumber` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `pk_AccessionNumber` (`AccessionNumber` ASC))
 ENGINE = MyISAM;
 
 
@@ -3628,131 +3626,117 @@ ENGINE = MyISAM;
 DROP TABLE IF EXISTS `DrugBankGroup` ;
 
 CREATE TABLE IF NOT EXISTS `DrugBankGroup` (
-  `WID` BIGINT NOT NULL,
   `DrugBank_WID` BIGINT NOT NULL,
   `GroupName` VARCHAR(25) NULL,
-  INDEX `fk_DrugBankGroup_DrugBank1_idx` (`DrugBank_WID` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `fk_DrugBankGroup_DrugBank1_idx` (`DrugBank_WID` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankTaxonomySubstructures`
+-- Table `DrugBankTaxonomySubstructure`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankTaxonomySubstructures` ;
+DROP TABLE IF EXISTS `DrugBankTaxonomySubstructure` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankTaxonomySubstructures` (
-  `WID` BIGINT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `DrugBankTaxonomySubstructure` (
   `DrugBank_WID` BIGINT NOT NULL,
   `Substructure` VARCHAR(255) NULL,
   `Class` VARCHAR(25) NULL,
-  PRIMARY KEY (`WID`),
   INDEX `fk_DrugBankTaxonomySubstructures_DrugBank1_idx` (`DrugBank_WID` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankSynonyms`
+-- Table `DrugBankSynonym`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankSynonyms` ;
+DROP TABLE IF EXISTS `DrugBankSynonym` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankSynonyms` (
-  `WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankSynonym` (
   `DrugBank_WID` BIGINT NOT NULL,
   `Synonym` VARCHAR(100) NULL,
-  INDEX `fk_DrugBankSynonyms_DrugBank1_idx` (`DrugBank_WID` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `fk_DrugBankSynonyms_DrugBank1_idx` (`DrugBank_WID` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankBrands`
+-- Table `DrugBankBrand`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankBrands` ;
+DROP TABLE IF EXISTS `DrugBankBrand` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankBrands` (
-  `WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankBrand` (
   `DrugBank_WID` BIGINT NOT NULL,
   `Brand` VARCHAR(100) NULL,
-  INDEX `fk_DrugBankBrands_DrugBank1_idx` (`DrugBank_WID` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `fk_DrugBankBrands_DrugBank1_idx` (`DrugBank_WID` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankMixtures`
+-- Table `DrugBankMixture`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankMixtures` ;
+DROP TABLE IF EXISTS `DrugBankMixture` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankMixtures` (
-  `WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankMixture` (
   `DrugBank_WID` BIGINT NOT NULL,
   `Name` VARCHAR(50) NULL,
   `Ingredients` TEXT NULL,
   INDEX `fk_DrugBankMixtures_DrugBank1_idx` (`DrugBank_WID` ASC),
-  INDEX `pk_Name` (`Name` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `pk_Name` (`Name` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankPackagers`
+-- Table `DrugBankPackager`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankPackagers` ;
+DROP TABLE IF EXISTS `DrugBankPackager` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankPackagers` (
-  `WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankPackager` (
   `DrugBank_WID` BIGINT NOT NULL,
   `Name` VARCHAR(50) NULL,
   `URL` TEXT NULL,
-  INDEX `fk_DrugBankPackagers_DrugBank1_idx` (`DrugBank_WID` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `fk_DrugBankPackagers_DrugBank1_idx` (`DrugBank_WID` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankManufacturers`
+-- Table `DrugBankManufacturer`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankManufacturers` ;
+DROP TABLE IF EXISTS `DrugBankManufacturer` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankManufacturers` (
-  `WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankManufacturer` (
   `DrugBank_WID` BIGINT NOT NULL,
   `Manufacturer` VARCHAR(50) NULL,
   `Generic` VARCHAR(10) NULL,
-  INDEX `fk_DrugBankManufacturers_DrugBank1_idx` (`DrugBank_WID` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `fk_DrugBankManufacturers_DrugBank1_idx` (`DrugBank_WID` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankPrices`
+-- Table `DrugBankPrice`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankPrices` ;
+DROP TABLE IF EXISTS `DrugBankPrice` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankPrices` (
-  `WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankPrice` (
   `DrugBank_WID` BIGINT NOT NULL,
   `Description` TEXT NULL,
   `Cost` VARCHAR(25) NULL,
   `Currency` VARCHAR(6) NULL,
   `Unit` VARCHAR(10) NULL,
-  INDEX `fk_DrugBankPrices_DrugBank1_idx` (`DrugBank_WID` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `fk_DrugBankPrices_DrugBank1_idx` (`DrugBank_WID` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankCategories`
+-- Table `DrugBankCategory`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankCategories` ;
+DROP TABLE IF EXISTS `DrugBankCategory` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankCategories` (
+CREATE TABLE IF NOT EXISTS `DrugBankCategory` (
   `WID` BIGINT NOT NULL AUTO_INCREMENT,
-  `Category` VARCHAR(50) NULL,
+  `Category` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL,
   PRIMARY KEY (`WID`),
   INDEX `pk_Category` USING BTREE (`Category` ASC))
-ENGINE = MyISAM;
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
 
 
 -- -----------------------------------------------------
@@ -3769,85 +3753,77 @@ ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBank_has_DrugBankCategories`
+-- Table `DrugBank_has_DrugBankCategory`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBank_has_DrugBankCategories` ;
+DROP TABLE IF EXISTS `DrugBank_has_DrugBankCategory` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBank_has_DrugBankCategories` (
+CREATE TABLE IF NOT EXISTS `DrugBank_has_DrugBankCategory` (
   `DrugBank_WID` BIGINT NOT NULL,
-  `DrugBankCategories_WID` BIGINT NOT NULL,
-  PRIMARY KEY (`DrugBank_WID`, `DrugBankCategories_WID`),
-  INDEX `fk_DrugBank_has_DrugBankCategories_DrugBankCategories1_idx` (`DrugBankCategories_WID` ASC),
+  `DrugBankCategory_WID` BIGINT NOT NULL,
+  PRIMARY KEY (`DrugBank_WID`, `DrugBankCategory_WID`),
+  INDEX `fk_DrugBank_has_DrugBankCategories_DrugBankCategories1_idx` (`DrugBankCategory_WID` ASC),
   INDEX `fk_DrugBank_has_DrugBankCategories_DrugBank1_idx` (`DrugBank_WID` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankAffectedOrganisms`
+-- Table `DrugBankAffectedOrganism`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankAffectedOrganisms` ;
+DROP TABLE IF EXISTS `DrugBankAffectedOrganism` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankAffectedOrganisms` (
-  `WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankAffectedOrganism` (
   `DrugBank_WID` BIGINT NOT NULL,
   `AffectedOrganisms` TEXT NULL,
-  INDEX `fk_DrugBankAffectedOrganisms_DrugBank1_idx` (`DrugBank_WID` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `fk_DrugBankAffectedOrganisms_DrugBank1_idx` (`DrugBank_WID` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankDosages`
+-- Table `DrugBankDosage`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankDosages` ;
+DROP TABLE IF EXISTS `DrugBankDosage` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankDosages` (
-  `WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankDosage` (
   `DrugBank_WID` BIGINT NOT NULL,
   `Form` VARCHAR(25) NULL,
   `Route` VARCHAR(25) NULL,
   `Strength` VARCHAR(25) NULL,
-  INDEX `fk_DrugBankDosages_DrugBank1_idx` (`DrugBank_WID` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `fk_DrugBankDosages_DrugBank1_idx` (`DrugBank_WID` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankATCCodes`
+-- Table `DrugBankATCCode`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankATCCodes` ;
+DROP TABLE IF EXISTS `DrugBankATCCode` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankATCCodes` (
-  `WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankATCCode` (
   `DrugBank_WID` BIGINT NOT NULL,
   `ATCCode` VARCHAR(25) NULL,
   INDEX `fk_DrugBankATCCodes_DrugBank1_idx` (`DrugBank_WID` ASC),
-  INDEX `pk_ATCCode` (`ATCCode` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `pk_ATCCode` (`ATCCode` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankAHFSCodes`
+-- Table `DrugBankAHFSCode`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankAHFSCodes` ;
+DROP TABLE IF EXISTS `DrugBankAHFSCode` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankAHFSCodes` (
-  `WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankAHFSCode` (
   `DrugBank_WID` BIGINT NOT NULL,
   `AHFSCodes` VARCHAR(25) NULL,
   INDEX `fk_DrugBankAHFSCodes_DrugBank1_idx` (`DrugBank_WID` ASC),
-  INDEX `pk_AHFSCodes` (`AHFSCodes` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `pk_AHFSCodes` (`AHFSCodes` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankPatents`
+-- Table `DrugBankPatent`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankPatents` ;
+DROP TABLE IF EXISTS `DrugBankPatent` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankPatents` (
+CREATE TABLE IF NOT EXISTS `DrugBankPatent` (
   `WID` BIGINT NOT NULL AUTO_INCREMENT,
   `Number` BIGINT NOT NULL,
   `Country` VARCHAR(255) NULL,
@@ -3869,45 +3845,42 @@ CREATE TABLE IF NOT EXISTS `DrugBankPatentsTemp` (
   `Country` VARCHAR(255) NULL,
   `Approved` DATETIME NULL,
   `Expires` DATETIME NULL,
-  INDEX `fk_DrugBankPatentsTemp_DrugBank1_idx` (`DrugBank_WID` ASC),
   INDEX `pk_Number` (`Number` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBank_has_DrugBankPatents`
+-- Table `DrugBank_has_DrugBankPatent`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBank_has_DrugBankPatents` ;
+DROP TABLE IF EXISTS `DrugBank_has_DrugBankPatent` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBank_has_DrugBankPatents` (
+CREATE TABLE IF NOT EXISTS `DrugBank_has_DrugBankPatent` (
   `DrugBank_WID` BIGINT NOT NULL,
-  `DrugBankPatents_WID` BIGINT NOT NULL,
-  PRIMARY KEY (`DrugBank_WID`, `DrugBankPatents_WID`),
-  INDEX `fk_DrugBank_has_DrugBankPatents_DrugBankPatents1_idx` (`DrugBankPatents_WID` ASC),
+  `DrugBankPatent_WID` BIGINT NOT NULL,
+  PRIMARY KEY (`DrugBank_WID`, `DrugBankPatent_WID`),
+  INDEX `fk_DrugBank_has_DrugBankPatents_DrugBankPatents1_idx` (`DrugBankPatent_WID` ASC),
   INDEX `fk_DrugBank_has_DrugBankPatents_DrugBank1_idx` (`DrugBank_WID` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankFoodInteractions`
+-- Table `DrugBankFoodInteraction`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankFoodInteractions` ;
+DROP TABLE IF EXISTS `DrugBankFoodInteraction` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankFoodInteractions` (
-  `WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankFoodInteraction` (
   `DrugBank_WID` BIGINT NOT NULL,
   `FoodInteractions` TEXT NULL,
-  INDEX `fk_DrugBankFoodInteractions_DrugBank1_idx` (`DrugBank_WID` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `fk_DrugBankFoodInteractions_DrugBank1_idx` (`DrugBank_WID` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankDrugInteractions`
+-- Table `DrugBankDrugInteraction`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankDrugInteractions` ;
+DROP TABLE IF EXISTS `DrugBankDrugInteraction` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankDrugInteractions` (
+CREATE TABLE IF NOT EXISTS `DrugBankDrugInteraction` (
   `DrugBank_WID` BIGINT NOT NULL,
   `Drug` BIGINT NOT NULL,
   `Description` TEXT NULL,
@@ -3917,94 +3890,84 @@ ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankProteinSequences`
+-- Table `DrugBankProteinSequence`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankProteinSequences` ;
+DROP TABLE IF EXISTS `DrugBankProteinSequence` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankProteinSequences` (
-  `WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankProteinSequence` (
   `DrugBank_WID` BIGINT NOT NULL,
   `Header` VARCHAR(100) NULL,
   `Chain` TEXT NULL,
-  INDEX `fk_DrugBankProteinSequences_DrugBank1_idx` (`DrugBank_WID` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `fk_DrugBankProteinSequences_DrugBank1_idx` (`DrugBank_WID` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankCalculatedProperties`
+-- Table `DrugBankCalculatedProperty`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankCalculatedProperties` ;
+DROP TABLE IF EXISTS `DrugBankCalculatedProperty` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankCalculatedProperties` (
-  `WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankCalculatedProperty` (
   `DrugBank_WID` BIGINT NOT NULL,
   `Kind` VARCHAR(25) NULL,
   `Value` VARCHAR(255) NULL,
   `Source` VARCHAR(25) NULL,
   INDEX `fk_DrugBankCalculatedProperties_DrugBank1_idx` (`DrugBank_WID` ASC),
   INDEX `pk_Kind` (`Kind` ASC),
-  INDEX `pk_Source` (`Source` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `pk_Source` (`Source` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankExperimentalProperties`
+-- Table `DrugBankExperimentalProperty`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankExperimentalProperties` ;
+DROP TABLE IF EXISTS `DrugBankExperimentalProperty` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankExperimentalProperties` (
-  `WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankExperimentalProperty` (
   `DrugBank_WID` BIGINT NOT NULL,
   `Kind` VARCHAR(25) NULL,
   `Value` VARCHAR(255) NULL,
   `Source` VARCHAR(255) NULL,
   INDEX `fk_DrugBankCalculatedProperties_DrugBank1` (`DrugBank_WID` ASC),
   INDEX `pk_Kind` (`Kind` ASC),
-  INDEX `pk_Source` (`Source` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `pk_Source` (`Source` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankExternalIdentifiers`
+-- Table `DrugBankExternalIdentifier`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankExternalIdentifiers` ;
+DROP TABLE IF EXISTS `DrugBankExternalIdentifier` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankExternalIdentifiers` (
-  `WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankExternalIdentifier` (
   `DrugBank_WID` BIGINT NOT NULL,
   `Resource` VARCHAR(50) NULL,
   `Identifier` VARCHAR(25) NULL,
   INDEX `fk_DrugBankExternalIdentifiers_DrugBank1_idx` (`DrugBank_WID` ASC),
-  INDEX `pk_Resource_Identifier` USING BTREE (`Resource` ASC, `Identifier` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `pk_Resource_Identifier` USING BTREE (`Resource` ASC, `Identifier` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankExternalLinks`
+-- Table `DrugBankExternalLink`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankExternalLinks` ;
+DROP TABLE IF EXISTS `DrugBankExternalLink` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankExternalLinks` (
-  `WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankExternalLink` (
   `DrugBank_WID` BIGINT NOT NULL,
   `Resource` VARCHAR(50) NULL,
   `URL` TEXT NULL,
   INDEX `fk_DrugBankExternalLinks_DrugBank1_idx` (`DrugBank_WID` ASC),
-  INDEX `pk_Resource` (`Resource` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `pk_Resource` (`Resource` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankTargets`
+-- Table `DrugBankTarget`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankTargets` ;
+DROP TABLE IF EXISTS `DrugBankTarget` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankTargets` (
+CREATE TABLE IF NOT EXISTS `DrugBankTarget` (
   `WID` BIGINT NOT NULL,
   `DrugBank_WID` BIGINT NOT NULL,
   `Partner` INT NOT NULL,
@@ -4018,41 +3981,37 @@ ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankTargetsRef`
+-- Table `DrugBankTargetRef`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankTargetsRef` ;
+DROP TABLE IF EXISTS `DrugBankTargetRef` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankTargetsRef` (
-  `WID` BIGINT NOT NULL,
-  `DrugBankTargets_WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankTargetRef` (
+  `DrugBankTarget_WID` BIGINT NOT NULL,
   `Cite` TEXT NULL,
   `Link` TEXT NULL,
-  INDEX `fk_DrugBankTargetsRef_DrugBankTargets1_idx` (`DrugBankTargets_WID` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `fk_DrugBankTargetsRef_DrugBankTargets1_idx` (`DrugBankTarget_WID` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankTargetsActions`
+-- Table `DrugBankTargetAction`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankTargetsActions` ;
+DROP TABLE IF EXISTS `DrugBankTargetAction` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankTargetsActions` (
-  `WID` BIGINT NOT NULL,
-  `DrugBankTargets_WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankTargetAction` (
+  `DrugBankTarget_WID` BIGINT NOT NULL,
   `Action` VARCHAR(50) NULL,
-  INDEX `fk_DrugBankTargetsActions_DrugBankTargets1_idx` (`DrugBankTargets_WID` ASC),
-  INDEX `pk_Action` (`Action` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `fk_DrugBankTargetsActions_DrugBankTargets1_idx` (`DrugBankTarget_WID` ASC),
+  INDEX `pk_Action` (`Action` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankEnzymes`
+-- Table `DrugBankEnzyme`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankEnzymes` ;
+DROP TABLE IF EXISTS `DrugBankEnzyme` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankEnzymes` (
+CREATE TABLE IF NOT EXISTS `DrugBankEnzyme` (
   `WID` BIGINT NOT NULL,
   `DrugBank_WID` BIGINT NOT NULL,
   `Partner` INT NOT NULL,
@@ -4064,41 +4023,37 @@ ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankEnzymesRef`
+-- Table `DrugBankEnzymeRef`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankEnzymesRef` ;
+DROP TABLE IF EXISTS `DrugBankEnzymeRef` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankEnzymesRef` (
-  `WID` BIGINT NOT NULL,
-  `DrugBankEnzymes_WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankEnzymeRef` (
+  `DrugBankEnzyme_WID` BIGINT NOT NULL,
   `Cite` TEXT NULL,
   `Link` TEXT NULL,
-  INDEX `fk_DrugBankEnzymesRef_DrugBankEnzymes1_idx` (`DrugBankEnzymes_WID` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `fk_DrugBankEnzymesRef_DrugBankEnzymes1_idx` (`DrugBankEnzyme_WID` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankEnzymesActions`
+-- Table `DrugBankEnzymeAction`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankEnzymesActions` ;
+DROP TABLE IF EXISTS `DrugBankEnzymeAction` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankEnzymesActions` (
-  `WID` BIGINT NOT NULL,
-  `DrugBankEnzymes_WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankEnzymeAction` (
+  `DrugBankEnzyme_WID` BIGINT NOT NULL,
   `Action` VARCHAR(50) NULL,
   INDEX `pk_Action` (`Action` ASC),
-  INDEX `fk_DrugBankEnzymesActions_DrugBankEnzymes1_idx` (`DrugBankEnzymes_WID` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `fk_DrugBankEnzymesActions_DrugBankEnzymes1_idx` (`DrugBankEnzyme_WID` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankTransporters`
+-- Table `DrugBankTransporter`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankTransporters` ;
+DROP TABLE IF EXISTS `DrugBankTransporter` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankTransporters` (
+CREATE TABLE IF NOT EXISTS `DrugBankTransporter` (
   `WID` BIGINT NOT NULL,
   `DrugBank_WID` BIGINT NOT NULL,
   `Partner` INT NOT NULL,
@@ -4110,41 +4065,37 @@ ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankTransportersRef`
+-- Table `DrugBankTransporterRef`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankTransportersRef` ;
+DROP TABLE IF EXISTS `DrugBankTransporterRef` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankTransportersRef` (
-  `WID` BIGINT NOT NULL,
-  `DrugBankTransporters_WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankTransporterRef` (
+  `DrugBankTransporter_WID` BIGINT NOT NULL,
   `Cite` TEXT NULL,
   `Link` TEXT NULL,
-  INDEX `fk_DrugBankTransportersRef_DrugBankTransporters1_idx` (`DrugBankTransporters_WID` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `fk_DrugBankTransportersRef_DrugBankTransporters1_idx` (`DrugBankTransporter_WID` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankTransportersActions`
+-- Table `DrugBankTransporterAction`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankTransportersActions` ;
+DROP TABLE IF EXISTS `DrugBankTransporterAction` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankTransportersActions` (
-  `WID` BIGINT NOT NULL,
-  `DrugBankTransporters_WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankTransporterAction` (
+  `DrugBankTransporter_WID` BIGINT NOT NULL,
   `Action` VARCHAR(50) NULL,
   INDEX `pk_Action` (`Action` ASC),
-  INDEX `fk_DrugBankTransportersActions_DrugBankTransporters1_idx` (`DrugBankTransporters_WID` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `fk_DrugBankTransportersActions_DrugBankTransporters1_idx` (`DrugBankTransporter_WID` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankCarriers`
+-- Table `DrugBankCarrier`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankCarriers` ;
+DROP TABLE IF EXISTS `DrugBankCarrier` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankCarriers` (
+CREATE TABLE IF NOT EXISTS `DrugBankCarrier` (
   `WID` BIGINT NOT NULL,
   `DrugBank_WID` BIGINT NOT NULL,
   `Partner` INT NOT NULL,
@@ -4156,32 +4107,28 @@ ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankCarriersRef`
+-- Table `DrugBankCarrierRef`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankCarriersRef` ;
+DROP TABLE IF EXISTS `DrugBankCarrierRef` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankCarriersRef` (
-  `WID` BIGINT NOT NULL,
-  `DrugBankCarriers_WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankCarrierRef` (
+  `DrugBankCarrier_WID` BIGINT NOT NULL,
   `Cite` TEXT NULL,
   `Link` TEXT NULL,
-  INDEX `fk_DrugBankCarriersRef_DrugBankCarriers1_idx` (`DrugBankCarriers_WID` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `fk_DrugBankCarriersRef_DrugBankCarriers1_idx` (`DrugBankCarrier_WID` ASC))
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `DrugBankCarriersActions`
+-- Table `DrugBankCarrierAction`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DrugBankCarriersActions` ;
+DROP TABLE IF EXISTS `DrugBankCarrierAction` ;
 
-CREATE TABLE IF NOT EXISTS `DrugBankCarriersActions` (
-  `WID` BIGINT NOT NULL,
-  `DrugBankCarriers_WID` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `DrugBankCarrierAction` (
+  `DrugBankCarrier_WID` BIGINT NOT NULL,
   `Action` VARCHAR(50) NULL,
   INDEX `pk_Action` (`Action` ASC),
-  INDEX `fk_DrugBankCarriersActions_DrugBankCarriers1_idx` (`DrugBankCarriers_WID` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `fk_DrugBankCarriersActions_DrugBankCarriers1_idx` (`DrugBankCarrier_WID` ASC))
 ENGINE = MyISAM;
 
 
@@ -4298,11 +4245,9 @@ ENGINE = MyISAM;
 DROP TABLE IF EXISTS `DrugBankTaxonomy` ;
 
 CREATE TABLE IF NOT EXISTS `DrugBankTaxonomy` (
-  `WID` BIGINT NOT NULL,
   `DrugBank_WID` BIGINT NOT NULL,
   `Kingdom` VARCHAR(100) NULL,
-  INDEX `fk_DrugBankTaxonomy_DrugBank1_idx` (`DrugBank_WID` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `fk_DrugBankTaxonomy_DrugBank1_idx` (`DrugBank_WID` ASC))
 ENGINE = MyISAM;
 
 
@@ -6055,10 +6000,8 @@ ENGINE = MyISAM;
 DROP TABLE IF EXISTS `OMIMRF` ;
 
 CREATE TABLE IF NOT EXISTS `OMIMRF` (
-  `WID` BIGINT NOT NULL,
   `OMIM_WID` BIGINT NOT NULL,
   `Reference` TEXT NOT NULL,
-  PRIMARY KEY (`WID`),
   INDEX `fk_OMIMRF_OMIM1_idx` (`OMIM_WID` ASC))
 ENGINE = MyISAM;
 
@@ -6083,11 +6026,9 @@ ENGINE = MyISAM;
 DROP TABLE IF EXISTS `OMIMCSData` ;
 
 CREATE TABLE IF NOT EXISTS `OMIMCSData` (
-  `WID` BIGINT NOT NULL,
   `OMIMCS_WID` BIGINT NOT NULL,
   `Data` TEXT NOT NULL,
-  INDEX `fk_OMIMCSData_OMIMCS1_idx` (`OMIMCS_WID` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `fk_OMIMCSData_OMIMCS1_idx` (`OMIMCS_WID` ASC))
 ENGINE = MyISAM;
 
 
@@ -6123,10 +6064,8 @@ ENGINE = MyISAM;
 DROP TABLE IF EXISTS `OMIMAV` ;
 
 CREATE TABLE IF NOT EXISTS `OMIMAV` (
-  `WID` BIGINT NOT NULL,
   `OMIM_WID` BIGINT NOT NULL,
   `AV` TEXT NOT NULL,
-  PRIMARY KEY (`WID`),
   INDEX `fk_OMIMAV_OMIM1_idx` (`OMIM_WID` ASC))
 ENGINE = MyISAM;
 
@@ -6150,11 +6089,9 @@ ENGINE = MyISAM;
 DROP TABLE IF EXISTS `OMIMSA` ;
 
 CREATE TABLE IF NOT EXISTS `OMIMSA` (
-  `WID` BIGINT NOT NULL,
   `OMIM_WID` BIGINT NOT NULL,
   `SA` TEXT NOT NULL,
-  INDEX `fk_OMIMSA_OMIM1_idx` (`OMIM_WID` ASC),
-  PRIMARY KEY (`WID`))
+  INDEX `fk_OMIMSA_OMIM1_idx` (`OMIM_WID` ASC))
 ENGINE = MyISAM;
 
 
