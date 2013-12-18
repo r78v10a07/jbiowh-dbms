@@ -6614,6 +6614,64 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
 
 
+-- -----------------------------------------------------
+-- Table `PIRSF`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `PIRSF` ;
+
+CREATE TABLE IF NOT EXISTS `PIRSF` (
+  `WID` BIGINT NOT NULL AUTO_INCREMENT,
+  `PIRSFnumber` VARCHAR(15) NOT NULL,
+  `CurationStatus` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL,
+  `Name` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL,
+  `Parent` VARCHAR(15) NULL,
+  `DataSet_WID` BIGINT NOT NULL,
+  PRIMARY KEY (`WID`),
+  INDEX `pirsf_number_index` (`PIRSFnumber` ASC),
+  INDEX `curation_status_index` (`CurationStatus` ASC),
+  INDEX `name_index` (`Name` ASC),
+  INDEX `parent_index` (`Parent` ASC),
+  INDEX `fk_PIRSF_DataSet1_idx` (`DataSet_WID` ASC))
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `PIRSFProtein`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `PIRSFProtein` ;
+
+CREATE TABLE IF NOT EXISTS `PIRSFProtein` (
+  `PIRSF_WID` BIGINT NOT NULL,
+  `AccessionNumber` VARCHAR(10) NOT NULL,
+  `Status` INT NULL,
+  `Seed` INT NULL,
+  INDEX `accession_index` (`AccessionNumber` ASC),
+  INDEX `fk_PIRSFProtein_PIRSF1_idx` (`PIRSF_WID` ASC))
+ENGINE = MyISAM;
+
+
+-- -----------------------------------------------------
+-- Table `PIRSF_has_Protein`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `PIRSF_has_Protein` ;
+
+CREATE TABLE IF NOT EXISTS `PIRSF_has_Protein` (
+  `PIRSF_WID` BIGINT NOT NULL,
+  `Protein_WID` BIGINT NOT NULL,
+  `Status` INT NULL,
+  `Seed` INT NULL,
+  PRIMARY KEY (`PIRSF_WID`, `Protein_WID`),
+  INDEX `fk_PIRSF_has_Protein_Protein1_idx` (`Protein_WID` ASC),
+  INDEX `fk_PIRSF_has_Protein_PIRSF1_idx` (`PIRSF_WID` ASC),
+  INDEX `status_index` (`Status` ASC),
+  INDEX `seed_index` (`Seed` ASC))
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
