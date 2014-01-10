@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jbiowhcore.basic.JBioWHUserData;
 import org.jbiowhcore.logger.VerbLogger;
 import org.jbiowhcore.utility.utils.ParseFiles;
@@ -310,8 +312,30 @@ public class WHMySQL extends JBioWHUserData implements WHDBMSFactory {
         it = tables.iterator();
         while (it.hasNext()) {
             String table = (String) it.next();
+            indexManagement(table, false);
             loadTSVFile(table, ParseFiles.getInstance().getFileAbsolutName(table));
+            indexManagement(table, true);
         }
+    }
+
+    /**
+     * This method ENABLE or DISABLE the keys into the DBMS
+     *
+     * @param table the table name
+     * @param enable true to enable the index
+     */
+    @Override
+    public void indexManagement(String table, boolean enable) {
+        try {
+            if (enable) {
+                executeUpdate("ALTER TABLE " + table + " ENABLE KEYS");
+            } else {
+                executeUpdate("ALTER TABLE " + table + " DISABLE KEYS");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(WHMySQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     /**

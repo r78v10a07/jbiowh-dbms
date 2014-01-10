@@ -12,10 +12,11 @@ import java.util.Map;
  *
  * $Author: r78v10a07@gmail.com $ $LastChangedDate: 2013-03-19 09:38:47 +0100
  * (Tue, 19 Mar 2013) $ $LastChangedRevision: 630 $
+ *
  * @since Jun 17, 2011
  */
 public interface WHDBMSFactory {
-    
+
     /**
      * Get the driver
      *
@@ -71,7 +72,7 @@ public interface WHDBMSFactory {
      * @param passwd the password
      */
     public void setPasswd(String passwd);
-    
+
     /**
      * Return the URL without the jdbc:// prefix
      *
@@ -85,7 +86,7 @@ public interface WHDBMSFactory {
      * @param createSchema true to create the schema and open de connection
      * @throws SQLException
      */
-    public void openConnection(boolean createSchema) throws SQLException;   
+    public void openConnection(boolean createSchema) throws SQLException;
 
     /**
      * Close the connection with the DBMS database
@@ -115,21 +116,21 @@ public interface WHDBMSFactory {
      * @param conn a Connection object with the MySQL connection
      */
     public void setConn(Connection conn);
-    
+
     /**
      * Is a JBioWH main schema
      *
      * @return true if it is a JBioWH main schema
      */
     public boolean isJbiowhSchema();
-    
+
     /**
      * Set as a JBioWH main schema
      *
      * @param jbiowhSchema true if it is a JBioWH main schema
      */
     public void setJbiowhSchema(boolean jbiowhSchema);
-    
+
     /**
      * Load TSV into the Table table
      *
@@ -215,6 +216,14 @@ public interface WHDBMSFactory {
      * @return the int columnLabel
      */
     public long getLongColumnLabel(String sql, String columnLabel);
+
+    /**
+     * This method ENABLE or DISABLE the keys into the DBMS
+     *
+     * @param table the table name
+     * @param enable true to enable the index
+     */
+    public void indexManagement(String table, boolean enable);
 
     /**
      * This metho split the field2header field returned on the sql sentence into
