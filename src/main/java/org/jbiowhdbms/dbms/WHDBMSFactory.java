@@ -218,14 +218,6 @@ public interface WHDBMSFactory {
     public long getLongColumnLabel(String sql, String columnLabel);
 
     /**
-     * This method ENABLE or DISABLE the keys into the DBMS
-     *
-     * @param table the table name
-     * @param enable true to enable the index
-     */
-    public void indexManagement(String table, boolean enable);
-
-    /**
      * This metho split the field2header field returned on the sql sentence into
      * a string array repeating the field1header
      *
