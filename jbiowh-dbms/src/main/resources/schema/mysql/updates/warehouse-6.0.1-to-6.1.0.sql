@@ -7,133 +7,133 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- from version 6.0.1 to 6.1.0
 -- -----------------------------------------------------
 
-ALTER TABLE `biowh`.`TaxonomyGenCode` 
+ALTER TABLE `TaxonomyGenCode` 
 CHANGE COLUMN `Code` `Code` VARCHAR(255) NULL DEFAULT NULL ;
 
-ALTER TABLE `biowh`.`TaxonomySynonym` 
+ALTER TABLE `TaxonomySynonym` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`Ontology` 
+ALTER TABLE `Ontology` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`OntologyXRef` 
+ALTER TABLE `OntologyXRef` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`OntologySynonym` 
+ALTER TABLE `OntologySynonym` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`GeneInfo` 
+ALTER TABLE `GeneInfo` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`GeneInfoSynonyms` 
+ALTER TABLE `GeneInfoSynonyms` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`GeneInfoDBXrefs` 
+ALTER TABLE `GeneInfoDBXrefs` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`Gene2Ensembl` 
+ALTER TABLE `Gene2Ensembl` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`Gene2GO` 
+ALTER TABLE `Gene2GO` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`GenePTT` 
+ALTER TABLE `GenePTT` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`ProteinName` 
+ALTER TABLE `ProteinName` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`ProteinAccessionNumber` 
+ALTER TABLE `ProteinAccessionNumber` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`ProteinLongName` 
+ALTER TABLE `ProteinLongName` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`ProteinDBReference` 
+ALTER TABLE `ProteinDBReference` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`ProteinGo` 
+ALTER TABLE `ProteinGo` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`ProteinRefSeq` 
+ALTER TABLE `ProteinRefSeq` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`ProteinPMID` 
+ALTER TABLE `ProteinPMID` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`ProteinKEGG` 
+ALTER TABLE `ProteinKEGG` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`ProteinBioCyc` 
+ALTER TABLE `ProteinBioCyc` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`ProteinPDB` 
+ALTER TABLE `ProteinPDB` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`ProteinIntAct` 
+ALTER TABLE `ProteinIntAct` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`ProteinDIP` 
+ALTER TABLE `ProteinDIP` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`ProteinMINT` 
+ALTER TABLE `ProteinMINT` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`ProteinDrugBank` 
+ALTER TABLE `ProteinDrugBank` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`ProteinComment` 
+ALTER TABLE `ProteinComment` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`ProteinKeyword` 
+ALTER TABLE `ProteinKeyword` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`ProteinPFAM` 
+ALTER TABLE `ProteinPFAM` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`DrugBank` 
+ALTER TABLE `DrugBank` 
 CHANGE COLUMN `Id` `Id` VARCHAR(10) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
 CHANGE COLUMN `Name` `Name` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
 CHANGE COLUMN `Description` `Description` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL DEFAULT NULL ,
 CHANGE COLUMN `Indication` `Indication` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL DEFAULT NULL ;
 
-ALTER TABLE `biowh`.`DrugBankCategory` 
+ALTER TABLE `DrugBankCategory` 
 CHANGE COLUMN `Category` `Category` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL DEFAULT NULL ;
 
-ALTER TABLE `biowh`.`ProteinGene` 
+ALTER TABLE `ProteinGene` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`GeneRNT` 
+ALTER TABLE `GeneRNT` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`Gene2RNANucleotide` 
+ALTER TABLE `Gene2RNANucleotide` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`Gene2ProteinAccession` 
+ALTER TABLE `Gene2ProteinAccession` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`Gene2GenomicNucleotide` 
+ALTER TABLE `Gene2GenomicNucleotide` 
 COLLATE = utf8_general_ci ;
 
-ALTER TABLE `biowh`.`PIRSF` 
+ALTER TABLE `PIRSF` 
 CHANGE COLUMN `CurationStatus` `CurationStatus` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
 CHANGE COLUMN `Name` `Name` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL DEFAULT NULL ;
 
-ALTER TABLE `biowh`.`COGFuncClassGroup` 
+ALTER TABLE `COGFuncClassGroup` 
 CHANGE COLUMN `Name` `Name` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ;
 
-ALTER TABLE `biowh`.`COGFuncClass` 
+ALTER TABLE `COGFuncClass` 
 CHANGE COLUMN `Letter` `Letter` CHAR CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
 CHANGE COLUMN `Name` `Name` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ;
 
-ALTER TABLE `biowh`.`COGOrthologousGroup` 
+ALTER TABLE `COGOrthologousGroup` 
 CHANGE COLUMN `Id` `Id` VARCHAR(15) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
 CHANGE COLUMN `GroupFunction` `GroupFunction` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL DEFAULT NULL ;
 
-ALTER TABLE `biowh`.`GeneBankCDSLocation` 
+ALTER TABLE `GeneBankCDSLocation` 
 CHANGE COLUMN `pTo` `pTo` INT(11) NULL DEFAULT NULL ;
 
-CREATE TABLE IF NOT EXISTS `biowh`.`ProtClust` (
+CREATE TABLE IF NOT EXISTS `ProtClust` (
   `WID` BIGINT(20) NOT NULL,
   `Entry` VARCHAR(25) NOT NULL,
   `Definition` TEXT NULL DEFAULT NULL,
@@ -147,7 +147,7 @@ ENGINE = MyISAM
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `biowh`.`ProtClustXRef` (
+CREATE TABLE IF NOT EXISTS `ProtClustXRef` (
   `Id` VARCHAR(50) NOT NULL,
   `ProtClust_WID` BIGINT(20) NOT NULL,
   INDEX `fk_ProtClustXRef_ProtClust1_idx` (`ProtClust_WID` ASC),
@@ -157,7 +157,7 @@ ENGINE = MyISAM
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `biowh`.`ProtClustProteins` (
+CREATE TABLE IF NOT EXISTS `ProtClustProteins` (
   `GeneGi` BIGINT(20) NULL DEFAULT NULL,
   `LocusName` VARCHAR(45) NULL DEFAULT NULL,
   `ProteinGi` BIGINT(20) NULL DEFAULT NULL,
@@ -172,7 +172,7 @@ ENGINE = MyISAM
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `biowh`.`ProtClust_has_GeneInfo` (
+CREATE TABLE IF NOT EXISTS `ProtClust_has_GeneInfo` (
   `ProtClust_WID` BIGINT(20) NOT NULL,
   `GeneInfo_WID` BIGINT(20) NOT NULL,
   PRIMARY KEY (`ProtClust_WID`, `GeneInfo_WID`),
@@ -182,7 +182,7 @@ ENGINE = MyISAM
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `biowh`.`ProtClust_has_Protein` (
+CREATE TABLE IF NOT EXISTS `ProtClust_has_Protein` (
   `ProtClust_WID` BIGINT(20) NOT NULL,
   `Protein_WID` BIGINT(20) NOT NULL,
   PRIMARY KEY (`ProtClust_WID`, `Protein_WID`),
@@ -192,7 +192,7 @@ ENGINE = MyISAM
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `biowh`.`ProtClust_has_Taxonomy` (
+CREATE TABLE IF NOT EXISTS `ProtClust_has_Taxonomy` (
   `ProtClust_WID` BIGINT(20) NOT NULL,
   `Taxonomy_WID` BIGINT(20) NOT NULL,
   PRIMARY KEY (`ProtClust_WID`, `Taxonomy_WID`),
@@ -202,7 +202,7 @@ ENGINE = MyISAM
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `biowh`.`ProtClustPMID` (
+CREATE TABLE IF NOT EXISTS `ProtClustPMID` (
   `PMID` BIGINT(20) NOT NULL,
   `ProtClust_WID` BIGINT(20) NOT NULL,
   INDEX `fk_ProtClustPMID_ProtClust1_idx` (`ProtClust_WID` ASC),
@@ -211,7 +211,7 @@ ENGINE = MyISAM
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `biowh`.`ProtClust_has_COGOrthologousGroup` (
+CREATE TABLE IF NOT EXISTS `ProtClust_has_COGOrthologousGroup` (
   `ProtClust_WID` BIGINT(20) NOT NULL,
   `COGOrthologousGroup_WID` BIGINT(20) NOT NULL,
   PRIMARY KEY (`ProtClust_WID`, `COGOrthologousGroup_WID`),
@@ -221,7 +221,7 @@ ENGINE = MyISAM
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `biowh`.`ProtClustEC` (
+CREATE TABLE IF NOT EXISTS `ProtClustEC` (
   `EC` VARCHAR(25) NOT NULL,
   `ProtClust_WID` BIGINT(20) NOT NULL,
   INDEX `fk_ProtClustEC_ProtClust1_idx` (`ProtClust_WID` ASC),
