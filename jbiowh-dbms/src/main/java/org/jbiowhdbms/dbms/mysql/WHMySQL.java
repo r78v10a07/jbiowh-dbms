@@ -8,7 +8,7 @@ import java.util.*;
 import org.jbiowhcore.basic.JBioWHUserData;
 import org.jbiowhcore.logger.VerbLogger;
 import org.jbiowhcore.utility.utils.ParseFiles;
-import org.jbiowhdbms.dbms.WHDBMSFactory;
+import org.jbiowhdbms.dbms.JBioWHDBMS;
 
 /**
  * This class handled the system connections using MySQL driver
@@ -18,7 +18,7 @@ import org.jbiowhdbms.dbms.WHDBMSFactory;
  *
  * @since Jun 17, 2011
  */
-public class WHMySQL extends JBioWHUserData implements WHDBMSFactory {
+public class WHMySQL extends JBioWHUserData implements JBioWHDBMS {
 
     private Connection conn = null;
     private final String MYSQLFLAG = "\tMySQL: ";
