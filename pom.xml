@@ -4,7 +4,7 @@
 
     <groupId>org</groupId>
     <artifactId>jbiowh-dbms</artifactId>
-    <version>6.1.0</version>
+    <version>6.1.1</version>
     <packaging>jar</packaging>
 
     <name>jbiowh-dbms</name>
@@ -36,12 +36,12 @@
         <dependency>
             <groupId>org</groupId>
             <artifactId>jbiowh-core</artifactId>
-            <version>6.1.0</version>
+            <version>6.1.1</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.30</version>
+            <version>5.1.33</version>
         </dependency>
     </dependencies>
     <repositories>

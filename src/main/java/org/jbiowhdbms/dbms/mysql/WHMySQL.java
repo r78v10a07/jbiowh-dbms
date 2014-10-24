@@ -310,9 +310,7 @@ public class WHMySQL extends JBioWHUserData implements JBioWHDBMS {
         it = tables.iterator();
         while (it.hasNext()) {
             String table = (String) it.next();
-            enableKeys(table);
             loadTSVFile(table, ParseFiles.getInstance().getFileAbsolutName(table));
-            disableKeys(table);
         }
     }
 
