@@ -2,12 +2,10 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-ALTER SCHEMA `biowh`  DEFAULT COLLATE utf8_bin ;
-
-ALTER TABLE `biowh`.`ProteinTaxId` 
+ALTER TABLE `ProteinTaxId` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBank` 
+ALTER TABLE `DrugBank` 
 DROP COLUMN `Version`,
 DROP COLUMN `Biotransformation`,
 CHANGE COLUMN `Id` `Id` VARCHAR(10) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
@@ -15,500 +13,500 @@ CHANGE COLUMN `Name` `Name` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_gene
 CHANGE COLUMN `Description` `Description` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL DEFAULT NULL ,
 CHANGE COLUMN `Indication` `Indication` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL DEFAULT NULL ;
 
-ALTER TABLE `biowh`.`DrugBankGeneralRef` 
+ALTER TABLE `DrugBankGeneralRef` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankSecondAccessionNumber` 
+ALTER TABLE `DrugBankSecondAccessionNumber` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankGroup` 
+ALTER TABLE `DrugBankGroup` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankTaxonomySubstructure` 
+ALTER TABLE `DrugBankTaxonomySubstructure` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankSynonym` 
+ALTER TABLE `DrugBankSynonym` 
 COLLATE = utf8_bin ,
 ADD COLUMN `Language` VARCHAR(100) NULL DEFAULT NULL AFTER `Synonym`,
 ADD COLUMN `Coder` VARCHAR(45) NULL DEFAULT NULL AFTER `Language`;
 
-ALTER TABLE `biowh`.`DrugBankBrand` 
+ALTER TABLE `DrugBankBrand` 
 COLLATE = utf8_bin ,
 ADD COLUMN `Company` VARCHAR(100) NULL DEFAULT NULL AFTER `Brand`;
 
-ALTER TABLE `biowh`.`DrugBankMixture` 
+ALTER TABLE `DrugBankMixture` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankPackager` 
+ALTER TABLE `DrugBankPackager` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankManufacturer` 
+ALTER TABLE `DrugBankManufacturer` 
 COLLATE = utf8_bin ,
 CHANGE COLUMN `Generic` `Generic` TINYINT(1) NULL DEFAULT NULL ;
 
-ALTER TABLE `biowh`.`DrugBankPrice` 
+ALTER TABLE `DrugBankPrice` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankCategory` 
+ALTER TABLE `DrugBankCategory` 
 CHANGE COLUMN `Category` `Category` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL DEFAULT NULL ;
 
-ALTER TABLE `biowh`.`DrugBankCategoriesTemp` 
+ALTER TABLE `DrugBankCategoriesTemp` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBank_has_DrugBankCategory` 
+ALTER TABLE `DrugBank_has_DrugBankCategory` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankAffectedOrganism` 
+ALTER TABLE `DrugBankAffectedOrganism` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankDosage` 
+ALTER TABLE `DrugBankDosage` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankATCCode` 
+ALTER TABLE `DrugBankATCCode` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankAHFSCode` 
+ALTER TABLE `DrugBankAHFSCode` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankPatent` 
+ALTER TABLE `DrugBankPatent` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankPatentsTemp` 
+ALTER TABLE `DrugBankPatentsTemp` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBank_has_DrugBankPatent` 
+ALTER TABLE `DrugBank_has_DrugBankPatent` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankFoodInteraction` 
+ALTER TABLE `DrugBankFoodInteraction` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankDrugInteraction` 
+ALTER TABLE `DrugBankDrugInteraction` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankProteinSequence` 
+ALTER TABLE `DrugBankProteinSequence` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankCalculatedProperty` 
+ALTER TABLE `DrugBankCalculatedProperty` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankExperimentalProperty` 
+ALTER TABLE `DrugBankExperimentalProperty` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankExternalIdentifier` 
+ALTER TABLE `DrugBankExternalIdentifier` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankExternalLink` 
+ALTER TABLE `DrugBankExternalLink` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankTarget` 
+ALTER TABLE `DrugBankTarget` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankTargetRef` 
+ALTER TABLE `DrugBankTargetRef` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankTargetAction` 
+ALTER TABLE `DrugBankTargetAction` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankEnzyme` 
+ALTER TABLE `DrugBankEnzyme` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankEnzymeRef` 
+ALTER TABLE `DrugBankEnzymeRef` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankEnzymeAction` 
+ALTER TABLE `DrugBankEnzymeAction` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankTransporter` 
+ALTER TABLE `DrugBankTransporter` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankTransporterRef` 
+ALTER TABLE `DrugBankTransporterRef` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankTransporterAction` 
+ALTER TABLE `DrugBankTransporterAction` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankCarrier` 
+ALTER TABLE `DrugBankCarrier` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankCarrierRef` 
+ALTER TABLE `DrugBankCarrierRef` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankCarrierAction` 
+ALTER TABLE `DrugBankCarrierAction` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankPartners` 
+ALTER TABLE `DrugBankPartners` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankPartnerRef` 
+ALTER TABLE `DrugBankPartnerRef` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankPartnerExternalIdentifiers` 
+ALTER TABLE `DrugBankPartnerExternalIdentifiers` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankPartnerSynonyms` 
+ALTER TABLE `DrugBankPartnerSynonyms` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankPartnerPFam` 
+ALTER TABLE `DrugBankPartnerPFam` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankTaxonomy` 
+ALTER TABLE `DrugBankTaxonomy` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGReaction` 
+ALTER TABLE `KEGGReaction` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGEnzyme` 
+ALTER TABLE `KEGGEnzyme` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGReactionName` 
+ALTER TABLE `KEGGReactionName` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGEnzymeName` 
+ALTER TABLE `KEGGEnzymeName` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGReactionOrthology` 
+ALTER TABLE `KEGGReactionOrthology` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGEnzymeOrthology` 
+ALTER TABLE `KEGGEnzymeOrthology` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGReactionRPair` 
+ALTER TABLE `KEGGReactionRPair` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGReactionPathway` 
+ALTER TABLE `KEGGReactionPathway` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGEnzymePathway` 
+ALTER TABLE `KEGGEnzymePathway` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGReactionEnzyme` 
+ALTER TABLE `KEGGReactionEnzyme` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGReaction_has_KEGGEnzyme` 
+ALTER TABLE `KEGGReaction_has_KEGGEnzyme` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGEnzymeClass` 
+ALTER TABLE `KEGGEnzymeClass` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGEnzymeAllReac` 
+ALTER TABLE `KEGGEnzymeAllReac` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGEnzymeClassTemp` 
+ALTER TABLE `KEGGEnzymeClassTemp` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGEnzyme_has_KEGGEnzymeClass` 
+ALTER TABLE `KEGGEnzyme_has_KEGGEnzymeClass` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGEnzymeSysName` 
+ALTER TABLE `KEGGEnzymeSysName` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGEnzymeReaction` 
+ALTER TABLE `KEGGEnzymeReaction` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGEnzymeSubstrate` 
+ALTER TABLE `KEGGEnzymeSubstrate` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGEnzymeProduct` 
+ALTER TABLE `KEGGEnzymeProduct` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGEnzymeCofactor` 
+ALTER TABLE `KEGGEnzymeCofactor` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGEnzymeGenes` 
+ALTER TABLE `KEGGEnzymeGenes` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGEnzymeDBLink` 
+ALTER TABLE `KEGGEnzymeDBLink` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGEnzymeInhibitor` 
+ALTER TABLE `KEGGEnzymeInhibitor` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGEnzymeEffector` 
+ALTER TABLE `KEGGEnzymeEffector` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGCompound` 
+ALTER TABLE `KEGGCompound` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGCompoundName` 
+ALTER TABLE `KEGGCompoundName` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGCompoundReaction` 
+ALTER TABLE `KEGGCompoundReaction` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGCompoundEnzyme` 
+ALTER TABLE `KEGGCompoundEnzyme` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGCompoundPathway` 
+ALTER TABLE `KEGGCompoundPathway` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGReaction_has_KEGGCompound_as_Product` 
+ALTER TABLE `KEGGReaction_has_KEGGCompound_as_Product` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGReaction_has_KEGGCompound_as_Substrate` 
+ALTER TABLE `KEGGReaction_has_KEGGCompound_as_Substrate` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGEnzyme_has_KEGGCompound_as_Cofactor` 
+ALTER TABLE `KEGGEnzyme_has_KEGGCompound_as_Cofactor` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGEnzyme_has_KEGGCompound_as_Inhibitor` 
+ALTER TABLE `KEGGEnzyme_has_KEGGCompound_as_Inhibitor` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGCompoundDBLink` 
+ALTER TABLE `KEGGCompoundDBLink` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGReactionProduct` 
+ALTER TABLE `KEGGReactionProduct` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGReactionSubstrate` 
+ALTER TABLE `KEGGReactionSubstrate` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGGlycan` 
+ALTER TABLE `KEGGGlycan` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGGlycanDBLink` 
+ALTER TABLE `KEGGGlycanDBLink` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGGlycanEnzyme` 
+ALTER TABLE `KEGGGlycanEnzyme` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGGlycanPathway` 
+ALTER TABLE `KEGGGlycanPathway` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGGlycanReaction` 
+ALTER TABLE `KEGGGlycanReaction` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGReaction_has_KEGGGlycan_as_Product` 
+ALTER TABLE `KEGGReaction_has_KEGGGlycan_as_Product` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGReaction_has_KEGGGlycan_as_Substrate` 
+ALTER TABLE `KEGGReaction_has_KEGGGlycan_as_Substrate` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGGlycanClassTemp` 
+ALTER TABLE `KEGGGlycanClassTemp` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGGlycanClass` 
+ALTER TABLE `KEGGGlycanClass` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGGlycan_has_KEGGGlycanClass` 
+ALTER TABLE `KEGGGlycan_has_KEGGGlycanClass` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGGlycanOrthology` 
+ALTER TABLE `KEGGGlycanOrthology` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGEnzyme_has_KEGGCompound_as_Effector` 
+ALTER TABLE `KEGGEnzyme_has_KEGGCompound_as_Effector` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGRPair` 
+ALTER TABLE `KEGGRPair` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGRPairCompound` 
+ALTER TABLE `KEGGRPairCompound` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGRPair_has_KEGGCompound` 
+ALTER TABLE `KEGGRPair_has_KEGGCompound` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGRPairRelatedPair` 
+ALTER TABLE `KEGGRPairRelatedPair` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGRPairRelatedPairTemp` 
+ALTER TABLE `KEGGRPairRelatedPairTemp` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGRPairEnzyme` 
+ALTER TABLE `KEGGRPairEnzyme` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGRPairReaction` 
+ALTER TABLE `KEGGRPairReaction` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGGene` 
+ALTER TABLE `KEGGGene` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGGeneName` 
+ALTER TABLE `KEGGGeneName` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGGeneOrthology` 
+ALTER TABLE `KEGGGeneOrthology` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGGenePathway` 
+ALTER TABLE `KEGGGenePathway` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGGeneDBLink` 
+ALTER TABLE `KEGGGeneDBLink` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGGeneDisease` 
+ALTER TABLE `KEGGGeneDisease` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGGeneDrugTarget` 
+ALTER TABLE `KEGGGeneDrugTarget` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGPathway` 
+ALTER TABLE `KEGGPathway` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGPathwayEntry` 
+ALTER TABLE `KEGGPathwayEntry` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGPathwayRelation` 
+ALTER TABLE `KEGGPathwayRelation` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGPathwayReaction` 
+ALTER TABLE `KEGGPathwayReaction` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGPathwayReactionSubstrate` 
+ALTER TABLE `KEGGPathwayReactionSubstrate` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGPathwayReactionProduct` 
+ALTER TABLE `KEGGPathwayReactionProduct` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGPathwayEntryGraphic` 
+ALTER TABLE `KEGGPathwayEntryGraphic` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGPathwayEntryEnzyme` 
+ALTER TABLE `KEGGPathwayEntryEnzyme` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGPathwayEntryCompound` 
+ALTER TABLE `KEGGPathwayEntryCompound` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGPathwayEntryGene` 
+ALTER TABLE `KEGGPathwayEntryGene` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGPathwayEntryOrthology` 
+ALTER TABLE `KEGGPathwayEntryOrthology` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGEnzyme_has_KEGGPathway` 
+ALTER TABLE `KEGGEnzyme_has_KEGGPathway` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGCompound_has_KEGGPathway` 
+ALTER TABLE `KEGGCompound_has_KEGGPathway` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGReaction_has_KEGGPathway` 
+ALTER TABLE `KEGGReaction_has_KEGGPathway` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGGene_has_KEGGPathway` 
+ALTER TABLE `KEGGGene_has_KEGGPathway` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGPathwayEntryReaction` 
+ALTER TABLE `KEGGPathwayEntryReaction` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGPathway_has_Taxonomy` 
+ALTER TABLE `KEGGPathway_has_Taxonomy` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGPathwayRelationSubType` 
+ALTER TABLE `KEGGPathwayRelationSubType` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGGlycanName` 
+ALTER TABLE `KEGGGlycanName` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGCompound_has_DrugBank` 
+ALTER TABLE `KEGGCompound_has_DrugBank` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`DrugBankDrugInteractionsTemp` 
+ALTER TABLE `DrugBankDrugInteractionsTemp` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`ProteinGeneTemp` 
+ALTER TABLE `ProteinGeneTemp` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`ProteinPFAMTemp` 
+ALTER TABLE `ProteinPFAMTemp` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGPathway_has_Protein` 
+ALTER TABLE `KEGGPathway_has_Protein` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`KEGGPathway_has_GeneInfo` 
+ALTER TABLE `KEGGPathway_has_GeneInfo` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`OMIMGeneMapTemp` 
+ALTER TABLE `OMIMGeneMapTemp` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`OMIMGeneMap` 
+ALTER TABLE `OMIMGeneMap` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`OMIMGeneMap_has_GeneSymbol` 
+ALTER TABLE `OMIMGeneMap_has_GeneSymbol` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`OMIMMethod` 
+ALTER TABLE `OMIMMethod` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`OMIMGeneMap_has_OMIMMethod` 
+ALTER TABLE `OMIMGeneMap_has_OMIMMethod` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`OMIMMorbidMap` 
+ALTER TABLE `OMIMMorbidMap` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`OMIMMorbidMap_has_GeneSymbol` 
+ALTER TABLE `OMIMMorbidMap_has_GeneSymbol` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`OMIMGeneMap_has_OMIMMorbidMap` 
+ALTER TABLE `OMIMGeneMap_has_OMIMMorbidMap` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`OMIMGeneMap_has_GeneSymbolTemp` 
+ALTER TABLE `OMIMGeneMap_has_GeneSymbolTemp` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`OMIMMethodTemp` 
+ALTER TABLE `OMIMMethodTemp` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`OMIMMorbidMap_has_GeneSymbolTemp` 
+ALTER TABLE `OMIMMorbidMap_has_GeneSymbolTemp` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`OMIM` 
+ALTER TABLE `OMIM` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`OMIMTI` 
+ALTER TABLE `OMIMTI` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`OMIMTX` 
+ALTER TABLE `OMIMTX` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`OMIMRF` 
+ALTER TABLE `OMIMRF` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`OMIMCS` 
+ALTER TABLE `OMIMCS` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`OMIMCSData` 
+ALTER TABLE `OMIMCSData` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`OMIMCD` 
+ALTER TABLE `OMIMCD` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`OMIMED` 
+ALTER TABLE `OMIMED` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`OMIMAV` 
+ALTER TABLE `OMIMAV` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`OMIMCN` 
+ALTER TABLE `OMIMCN` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`OMIMSA` 
+ALTER TABLE `OMIMSA` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`PfamSeq_has_UniProtId` 
+ALTER TABLE `PfamSeq_has_UniProtId` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`PfamSeq_has_Protein` 
+ALTER TABLE `PfamSeq_has_Protein` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`PIRSF` 
+ALTER TABLE `PIRSF` 
 CHANGE COLUMN `CurationStatus` `CurationStatus` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
 CHANGE COLUMN `Name` `Name` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL DEFAULT NULL ;
 
-ALTER TABLE `biowh`.`PIRSFProtein` 
+ALTER TABLE `PIRSFProtein` 
 COLLATE = utf8_bin ;
 
-ALTER TABLE `biowh`.`COGFuncClassGroup` 
+ALTER TABLE `COGFuncClassGroup` 
 CHANGE COLUMN `Name` `Name` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ;
 
-ALTER TABLE `biowh`.`COGFuncClass` 
+ALTER TABLE `COGFuncClass` 
 CHANGE COLUMN `Letter` `Letter` CHAR CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
 CHANGE COLUMN `Name` `Name` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ;
 
-ALTER TABLE `biowh`.`COGOrthologousGroup` 
+ALTER TABLE `COGOrthologousGroup` 
 CHANGE COLUMN `Id` `Id` VARCHAR(15) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
 CHANGE COLUMN `GroupFunction` `GroupFunction` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL DEFAULT NULL ;
 
-ALTER TABLE `biowh`.`GeneBankCDSLocation` 
+ALTER TABLE `GeneBankCDSLocation` 
 CHANGE COLUMN `pTo` `pTo` INT(11) NULL DEFAULT NULL ;
 
-ALTER TABLE `biowh`.`ProtClustProteins` 
+ALTER TABLE `ProtClustProteins` 
 CHANGE COLUMN `GeneGi` `GeneGi` BIGINT(20) NULL DEFAULT NULL ,
 CHANGE COLUMN `ProteinGi` `ProteinGi` BIGINT(20) NULL DEFAULT NULL ;
 
