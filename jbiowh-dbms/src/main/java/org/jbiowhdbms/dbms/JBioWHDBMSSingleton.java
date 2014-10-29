@@ -15,12 +15,6 @@ import org.jbiowhcore.logger.VerbLogger;
 public class JBioWHDBMSSingleton {
 
     private static JBioWHDBMSSingleton singleton;
-    private String mainURL;
-    private Map<String, JBioWHDBMS> connections;
-
-    private JBioWHDBMSSingleton() {
-        connections = new HashMap();
-    }
 
     /**
      * Return a JBioWHDBMSSingleton instance
@@ -32,6 +26,12 @@ public class JBioWHDBMSSingleton {
             singleton = new JBioWHDBMSSingleton();
         }
         return singleton;
+    }
+    private String mainURL;
+    private final Map<String, JBioWHDBMS> connections;
+
+    private JBioWHDBMSSingleton() {
+        connections = new HashMap();
     }
 
     public JBioWHDBMS getWhdbmsFactory() {
@@ -55,7 +55,7 @@ public class JBioWHDBMSSingleton {
      *
      * @throws java.sql.SQLException
      */
-    public void closeAll() throws SQLException{
+    public void closeAll() throws SQLException {
         for (String url : connections.keySet()) {
             connections.get(url).closeConnection();
         }
@@ -76,7 +76,7 @@ public class JBioWHDBMSSingleton {
      * @param url the schema's URL
      * @throws java.sql.SQLException
      */
-    public void closeConnection(String url) throws SQLException {
+    public void closeConnection(String url) throws SQLException{
         VerbLogger.getInstance().log(this.getClass(), "Closing connection by url: " + url);
         if (url != null && connections.get(parseURL(url)) != null) {
             VerbLogger.getInstance().log(this.getClass(), "Removing the connection from the Map");
@@ -114,4 +114,5 @@ public class JBioWHDBMSSingleton {
         return newUrl;
     }
 
+    
 }

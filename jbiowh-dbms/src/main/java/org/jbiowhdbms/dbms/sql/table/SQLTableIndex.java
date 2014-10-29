@@ -96,7 +96,7 @@ public class SQLTableIndex {
     public void addColumn(String name, String order) {
         String key;
         if (name == null || name.isEmpty()) {
-            key = new Integer(columns.size()).toString();
+            key = Integer.toString(columns.size());
         } else {
             key = name;
         }
@@ -291,10 +291,7 @@ public class SQLTableIndex {
             return false;
         }
         final SQLTableIndex other = (SQLTableIndex) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.name, other.name);
     }
 
     /**

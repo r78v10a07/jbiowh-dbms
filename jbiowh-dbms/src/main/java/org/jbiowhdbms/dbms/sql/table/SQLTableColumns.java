@@ -22,7 +22,7 @@ import org.jbiowhdbms.dbms.sql.exception.SQLTableException;
  */
 public class SQLTableColumns extends Observable {
 
-    private ConcurrentHashMap<String, SQLTableColumn> columns;
+    private final ConcurrentHashMap<String, SQLTableColumn> columns;
 
     /**
      * Creates the columns handler in a SQLTable
@@ -87,7 +87,7 @@ public class SQLTableColumns extends Observable {
     public void addColumn(String name, String type, boolean PK, boolean NN, boolean UQ, boolean AI, Object def) {
         String key;
         if (name == null || name.isEmpty()) {
-            key = new Integer(columns.size()).toString();
+            key = Integer.toString(columns.size());
         } else {
             key = name;
         }

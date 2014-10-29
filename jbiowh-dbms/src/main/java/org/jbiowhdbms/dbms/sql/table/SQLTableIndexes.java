@@ -22,7 +22,7 @@ import org.jbiowhdbms.dbms.sql.exception.SQLTableException;
  */
 public class SQLTableIndexes implements Observer {
 
-    private ConcurrentHashMap<String, SQLTableIndex> indexes;
+    private final ConcurrentHashMap<String, SQLTableIndex> indexes;
 
     /**
      * Creates the indexes handler in a SQLTable
@@ -81,7 +81,7 @@ public class SQLTableIndexes implements Observer {
     public void addIndex(String name, String type) {
         String key;
         if (name == null || name.isEmpty()) {
-            key = new Integer(indexes.size()).toString();
+            key = Integer.toString(indexes.size());
         } else {
             key = name;
         }

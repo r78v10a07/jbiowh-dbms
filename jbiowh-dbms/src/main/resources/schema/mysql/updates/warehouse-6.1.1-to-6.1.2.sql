@@ -4,15 +4,13 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
 -- Use this SQL script to update an existing JBioWH DB
--- from version 6.1.0 to 6.1.1
+-- from version 6.1.1 to 6.1.2
 -- -----------------------------------------------------
 
 ALTER TABLE `ProteinTaxId` 
 COLLATE = utf8_bin ;
 
 ALTER TABLE `DrugBank` 
-DROP COLUMN `Version`,
-DROP COLUMN `Biotransformation`,
 CHANGE COLUMN `Id` `Id` VARCHAR(10) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
 CHANGE COLUMN `Name` `Name` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
 CHANGE COLUMN `Description` `Description` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL DEFAULT NULL ,
@@ -31,13 +29,10 @@ ALTER TABLE `DrugBankTaxonomySubstructure`
 COLLATE = utf8_bin ;
 
 ALTER TABLE `DrugBankSynonym` 
-COLLATE = utf8_bin ,
-ADD COLUMN `Language` VARCHAR(100) NULL DEFAULT NULL AFTER `Synonym`,
-ADD COLUMN `Coder` VARCHAR(45) NULL DEFAULT NULL AFTER `Language`;
+COLLATE = utf8_bin ;
 
 ALTER TABLE `DrugBankBrand` 
-COLLATE = utf8_bin ,
-ADD COLUMN `Company` VARCHAR(100) NULL DEFAULT NULL AFTER `Brand`;
+COLLATE = utf8_bin ;
 
 ALTER TABLE `DrugBankMixture` 
 COLLATE = utf8_bin ;
@@ -46,8 +41,7 @@ ALTER TABLE `DrugBankPackager`
 COLLATE = utf8_bin ;
 
 ALTER TABLE `DrugBankManufacturer` 
-COLLATE = utf8_bin ,
-CHANGE COLUMN `Generic` `Generic` TINYINT(1) NULL DEFAULT NULL ;
+COLLATE = utf8_bin ;
 
 ALTER TABLE `DrugBankPrice` 
 COLLATE = utf8_bin ;
@@ -104,7 +98,13 @@ ALTER TABLE `DrugBankExternalLink`
 COLLATE = utf8_bin ;
 
 ALTER TABLE `DrugBankTarget` 
-COLLATE = utf8_bin ;
+COLLATE = utf8_bin ,
+DROP COLUMN `Position`,
+DROP COLUMN `Partner`,
+ADD COLUMN `Id` VARCHAR(25) NOT NULL AFTER `DrugBank_WID`,
+ADD COLUMN `Name` VARCHAR(255) NULL DEFAULT NULL AFTER `Id`,
+ADD INDEX `id_index` (`Id` ASC),
+DROP INDEX `pk_Partner` ;
 
 ALTER TABLE `DrugBankTargetRef` 
 COLLATE = utf8_bin ;
@@ -113,7 +113,13 @@ ALTER TABLE `DrugBankTargetAction`
 COLLATE = utf8_bin ;
 
 ALTER TABLE `DrugBankEnzyme` 
-COLLATE = utf8_bin ;
+COLLATE = utf8_bin ,
+DROP COLUMN `Position`,
+DROP COLUMN `Partner`,
+ADD COLUMN `Id` VARCHAR(25) NOT NULL AFTER `DrugBank_WID`,
+ADD COLUMN `Name` VARCHAR(255) NULL DEFAULT NULL AFTER `Id`,
+DROP INDEX `pk_Partner` ,
+ADD INDEX `pk_Partner` (`Id` ASC);
 
 ALTER TABLE `DrugBankEnzymeRef` 
 COLLATE = utf8_bin ;
@@ -122,7 +128,13 @@ ALTER TABLE `DrugBankEnzymeAction`
 COLLATE = utf8_bin ;
 
 ALTER TABLE `DrugBankTransporter` 
-COLLATE = utf8_bin ;
+COLLATE = utf8_bin ,
+DROP COLUMN `Position`,
+DROP COLUMN `Partner`,
+ADD COLUMN `Id` VARCHAR(25) NOT NULL AFTER `DrugBank_WID`,
+ADD COLUMN `Name` VARCHAR(255) NULL DEFAULT NULL AFTER `Id`,
+DROP INDEX `pk_Partner` ,
+ADD INDEX `pk_Partner` (`Id` ASC);
 
 ALTER TABLE `DrugBankTransporterRef` 
 COLLATE = utf8_bin ;
@@ -131,27 +143,17 @@ ALTER TABLE `DrugBankTransporterAction`
 COLLATE = utf8_bin ;
 
 ALTER TABLE `DrugBankCarrier` 
-COLLATE = utf8_bin ;
+COLLATE = utf8_bin ,
+DROP COLUMN `Position`,
+DROP COLUMN `Partner`,
+ADD COLUMN `Id` VARCHAR(25) NULL DEFAULT NULL AFTER `DrugBank_WID`,
+ADD COLUMN `Name` VARCHAR(255) NULL DEFAULT NULL AFTER `Id`,
+DROP INDEX `pk_Partner` ;
 
 ALTER TABLE `DrugBankCarrierRef` 
 COLLATE = utf8_bin ;
 
 ALTER TABLE `DrugBankCarrierAction` 
-COLLATE = utf8_bin ;
-
-ALTER TABLE `DrugBankPartners` 
-COLLATE = utf8_bin ;
-
-ALTER TABLE `DrugBankPartnerRef` 
-COLLATE = utf8_bin ;
-
-ALTER TABLE `DrugBankPartnerExternalIdentifiers` 
-COLLATE = utf8_bin ;
-
-ALTER TABLE `DrugBankPartnerSynonyms` 
-COLLATE = utf8_bin ;
-
-ALTER TABLE `DrugBankPartnerPFam` 
 COLLATE = utf8_bin ;
 
 ALTER TABLE `DrugBankTaxonomy` 
@@ -514,6 +516,64 @@ CHANGE COLUMN `pTo` `pTo` INT(11) NULL DEFAULT NULL ;
 ALTER TABLE `ProtClustProteins` 
 CHANGE COLUMN `GeneGi` `GeneGi` BIGINT(20) NULL DEFAULT NULL ,
 CHANGE COLUMN `ProteinGi` `ProteinGi` BIGINT(20) NULL DEFAULT NULL ;
+
+CREATE TABLE IF NOT EXISTS `DrugBankTargetPolypeptide` (
+  `DrugBankTarget_WID` BIGINT(20) NOT NULL,
+  `Id` VARCHAR(25) NOT NULL,
+  `Name` VARCHAR(255) NULL DEFAULT NULL,
+  `Source` VARCHAR(45) NULL DEFAULT NULL,
+  INDEX `fk_DrugBankTargetPolypeptide_DrugBankTarget1_idx` (`DrugBankTarget_WID` ASC),
+  INDEX `id_index` (`Id` ASC),
+  INDEX `externalId_index` (`Source` ASC))
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+CREATE TABLE IF NOT EXISTS `DrugBankEnzymePolypeptide` (
+  `DrugBankEnzyme_WID` BIGINT(20) NOT NULL,
+  `Id` VARCHAR(25) NOT NULL,
+  `Name` VARCHAR(255) NULL DEFAULT NULL,
+  `Source` VARCHAR(45) NULL DEFAULT NULL,
+  INDEX `fk_DrugBankEnzymePolypeptide_DrugBankEnzyme1_idx` (`DrugBankEnzyme_WID` ASC),
+  INDEX `id_index` (`Id` ASC),
+  INDEX `externalId_index` (`Source` ASC))
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+CREATE TABLE IF NOT EXISTS `DrugBankTransporterPolypeptide` (
+  `DrugBankTransporter_WID` BIGINT(20) NOT NULL,
+  `Id` VARCHAR(25) NOT NULL,
+  `Name` VARCHAR(255) NULL DEFAULT NULL,
+  `Source` VARCHAR(45) NULL DEFAULT NULL,
+  INDEX `id_index` (`Id` ASC),
+  INDEX `externalId_index` (`Source` ASC),
+  INDEX `fk_DrugBankTransporterPolypeptide_DrugBankTransporter1_idx` (`DrugBankTransporter_WID` ASC))
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+CREATE TABLE IF NOT EXISTS `DrugBankCarrierPolypeptide` (
+  `DrugBankCarrier_WID` BIGINT(20) NOT NULL,
+  `Id` VARCHAR(25) NOT NULL,
+  `Name` VARCHAR(255) NULL DEFAULT NULL,
+  `Source` VARCHAR(45) NULL DEFAULT NULL,
+  INDEX `id_index` (`Id` ASC),
+  INDEX `externalId_index` (`Source` ASC),
+  INDEX `fk_DrugBankCarrierPolypeptide_DrugBankCarrier1_idx` (`DrugBankCarrier_WID` ASC))
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+DROP TABLE IF EXISTS `DrugBankPartners` ;
+
+DROP TABLE IF EXISTS `DrugBankPartnerSynonyms` ;
+
+DROP TABLE IF EXISTS `DrugBankPartnerRef` ;
+
+DROP TABLE IF EXISTS `DrugBankPartnerPFam` ;
+
+DROP TABLE IF EXISTS `DrugBankPartnerExternalIdentifiers` ;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
