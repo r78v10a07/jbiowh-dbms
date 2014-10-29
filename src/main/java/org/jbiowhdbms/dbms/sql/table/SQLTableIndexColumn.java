@@ -124,10 +124,7 @@ public class SQLTableIndexColumn {
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        if (this.number != other.number) {
-            return false;
-        }
-        return true;
+        return this.number == other.number;
     }
 
     @Override
