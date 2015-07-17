@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
+
 import org.jbiowhcore.basic.JBioWHUserData;
 import org.jbiowhcore.logger.VerbLogger;
 import org.jbiowhcore.utility.utils.ParseFiles;
@@ -79,7 +80,7 @@ public class WHMySQL extends JBioWHUserData implements JBioWHDBMS {
 
         java.util.Properties conProperties = new java.util.Properties();
         conProperties.put("user", getUser());
-        conProperties.put("password", getPasswd());
+        conProperties.put("password", (getPasswd() == null ? "":getPasswd()));
         conProperties.put("autoReconnect", "true");
         conProperties.put("maxReconnects", "2");
         if (createSchema) {
@@ -571,7 +572,7 @@ public class WHMySQL extends JBioWHUserData implements JBioWHDBMS {
                 s.executeQuery("select count(*) from " + table);
                 ResultSet rs = s.getResultSet();
                 while (rs.next()) {
-                    List inData = new ArrayList();
+                    List<Object> inData = new ArrayList<Object>();
                     inData.add(table);
                     inData.add(rs.getInt(1));
                     data.add(inData);
